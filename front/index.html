@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Goblitee Potion Emporium</title>
+        
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/29be63ab34.js" 
+        crossorigin="anonymous">
+        </script>
+        <!-- CSS -->
+        <link rel="stylesheet" href="styles.css"/>
+    </head>
+    <body>
+        <div class="page_wrapper">
+
+            <h1 class = shop_name>Goblitee's Potion Emporium</h1>
+            <img src = ../images/goblitee.png id="goblitee_image"></img>
+            <div class="speech_wrapper">
+                <div class="goblitee_title">
+                    <h2>Goblitee the Potion Master</h2>
+                </div>
+                <div class="goblitee_speech">
+                    <p id="goblitee_text"></p>
+                    <button id="next_button"><i class="fa-solid fa-caret-down"></i></button>
+                </div>
+            </div>
+            <div class="player_speech_wrapper">
+                <div class="player_title">
+                    <h2> Shaywhytee the Inconsequential</h2>
+                </div>
+                <div class="player_speech">
+                    <p id="player_text"></p>
+                    <div class="player_input_wrapper">
+                        <input type="text" id="player_input">
+                        <button id = "select_button">Enter</button>
+                        <button id = "cancel_button">Cancel</button>
+                    </div>
+                </div>
+                <button id="talk_button"> Talk</button>
+            </div>
+            <div class="coin_purse_wrapper">
+                <div id="coin_purse_changes">test</div>
+                <div id="coin_purse"></div>
+            </div>
+        </div>
+        <!-- JS -->
+        <script src="menu.js"></script>
+    </body>
+</html>

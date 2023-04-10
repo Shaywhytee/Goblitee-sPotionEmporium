@@ -1,0 +1,318 @@
+body {
+    margin: 0px;
+    font-family: 'Courier New', Courier, monospace;
+    background-image: url('../images/aldo-katayanagi-homunc1280f.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    overflow: hidden;
+}
+
+.page_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100vw;
+}
+.shop_name {
+    background-color: gray;
+    border: solid;
+    border-color: white;
+    border-radius: 5px;
+    box-shadow: 10px 5px 5px black;
+    height: fit-content;
+    width: 600px;
+    text-align: center;
+}
+#goblitee_image {
+    position: absolute;
+    top: 50%;
+    height: 80vh;
+    z-index: 1;
+    overflow: hidden;
+    opacity: 100%;
+    transition: 4s;
+}
+
+#goblitee_image.visible{
+    opacity: 100%;
+    transition: 4s;
+    height: 100vh;
+}
+
+.speech_wrapper.visible {
+    opacity: 100%;
+    height: 40vh;
+    width: 27vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    background: rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border: solid;
+    border-color: gray;
+    border-radius: 5px;
+    box-shadow: 10px 5px 5px black;
+    margin-left: 20px;
+    margin-bottom:  -10vh;
+    transition: 1s;
+}
+
+.speech_wrapper {
+    opacity: 0%;
+    transition: 1s;
+    height: 40vh;
+    width: 27vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    background: rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border: solid;
+    border-color: gray;
+    border-radius: 5px;
+    box-shadow: 10px 5px 5px black;
+    margin-left: 20px;
+    margin-bottom:  -10vh;
+    transition: 1s;
+}
+
+.speech_wrapper > .goblitee_title {
+    width: 100%;
+    height: 6vh;
+    border-bottom: solid;
+    text-align: center;
+
+}
+
+.speech_wrapper > .goblitee_title h2 {
+    color: aliceblue;
+    text-shadow: 10px 5px 5px black;
+    font-size: 1vw;
+}
+
+.speech_wrapper > .goblitee_speech {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 90%;
+    text-align: left;
+    color: aliceblue;
+    font-size: 1vw;
+}
+#goblitee_text {
+    white-space: pre-wrap;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-left: 3vw;
+    margin-right: 2vw;
+    line-height: 4vh;
+    text-shadow: 10px 5px 5px black;
+}
+
+
+
+#next_button {
+    background: rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+    transition: 1s;
+}
+#next_button:hover {
+    background: aliceblue;
+    color: black;
+}
+#next_button.disabled {
+    background: grey;
+    pointer-events: none;
+    transition: none;
+    color: black;
+    border-color: black;
+    transition: 1s;
+}
+
+
+
+.player_speech_wrapper {
+    height: 40vh;
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    align-self: flex-end;
+    background: rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border: solid;
+    border-color: gray;
+    border-radius: 5px;
+    box-shadow: 10px 5px 5px black;
+    margin-bottom: 5px;
+    margin-right: 20px;
+    transition: 2s;
+}
+
+.player_speech_wrapper > .player_title h2 {
+    color: aliceblue;
+    text-shadow: 10px 5px 5px black;
+    font-size: 1vw;
+    line-height: 1vh;
+}
+
+.player_speech_wrapper > .player_title {
+    width: 100%;
+    height: 50px;
+    border-bottom: solid;
+    text-align: center;
+}
+
+.player_speech_wrapper > .player_speech {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+
+#player_input {
+    background: rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    color: goldenrod;
+    font-family: 'Courier New', Courier, monospace;
+    height: 3vh;
+    width: 1vw;
+    font-size: 2vh;
+    font-weight: 900;
+}
+#cancel_button.disabled {
+    background: grey;
+    pointer-events: none;
+    transition: none;
+    color: black;
+    border-color: black;
+}
+#select_button.disabled {
+    background: grey;
+    pointer-events: none;
+    transition: none;
+    color: black;
+    border-color: black;
+}
+
+.player_speech_wrapper  > .player_speech p {
+    color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1vw;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.player_speech_wrapper  > .player_speech > .player_input_wrapper {
+}
+
+.player_speech_wrapper  > .player_speech > .player_input_wrapper button {
+    background: rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 5px;
+    height: 30px;
+    transition: 1s;
+    font-size: .8vw;
+}
+
+.player_speech_wrapper  > .player_speech  > .player_input_wrapper button:hover {
+    background: aliceblue;
+    color: black;
+    border-color: black;
+}
+
+#talk_button {
+    background: rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 5px;
+    height: 4vh;
+    width: 5vw;
+    transition: 1s;
+    margin-bottom: 2vh;
+    font-size: .8vw;
+}
+
+#talk_button:hover{
+    background: aliceblue;
+    color: black;
+    border-color: black;
+}
+
+#talk_button.disabled {
+    background: grey;
+    pointer-events: none;
+    transition: none;
+    color: black;
+    border-color: black;
+}
+
+#talk_button.disabled:hover {
+    background-color: grey;
+    cursor: default;
+    border: none;
+}
+
+.coin_purse_wrapper {
+    display: flex;
+    width: 15vw;
+    line-height: 4vh;
+    color: goldenrod;
+    align-self: flex-end;
+    box-shadow: 10px 5px 5px black;
+}
+
+#coin_purse {
+    height: 4vh;
+    width: 4vw;
+    text-align: center;
+    color: goldenrod;
+    font-weight: 900;
+    background: rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border: solid;
+    border-color: gray;
+    border-radius: 5px;
+    margin-bottom: 3vh;
+    margin-right: 3vw;
+}
+
+#coin_purse_changes {
+    height: 4vh;
+    width: 4vw;
+    line-height: 1vh;
+    text-align: center;
+    color: goldenrod;
+    background: rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border: solid;
+    border-color: gray;
+    border-radius: 5px;
+    margin-bottom: 3vh;
+    margin-right: 1vw;
+    transition: 1s;
+    opacity: 0%;
+}
+
+#coin_purse_changes.visible {
+    opacity: 100%;
+}

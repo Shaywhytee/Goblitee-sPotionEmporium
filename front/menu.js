@@ -16,14 +16,12 @@ const activeIngredient = [
     {name: "4: Yeti Teeth", price: 11},
     {name: "5: Holy Cloth", price: 7},
 ];
-
 // Player Coin Purse
 var playerCoinPurse = 20
 coinPurseText = document.getElementById("coin_purse")
 coinPurseText.innerHTML = `${playerCoinPurse} Gold`
 coinPurseChangesText = document.getElementById("coin_purse_changes")
 // Comments
-
 function getPotionComment(selectedBase) {
     switch (selectedBase.name) {
         case "1: Green Slime":
@@ -42,7 +40,6 @@ function getPotionComment(selectedBase) {
             return "";
     }
 }
-
 function getIngredientComment(selectedIngredient) {
     switch (selectedIngredient.name) {
         case "1: Goblin Jello":
@@ -59,7 +56,6 @@ function getIngredientComment(selectedIngredient) {
                 return "";
     }
 }
-
 // Phrases
 const basePhrases = potionBase.map(item => `${item.name} at ${item.price} Gold`)
 const ingredientPhrases = activeIngredient.map(item => `${item.name} at ${item.price} Gold`)
@@ -75,15 +71,12 @@ var phrases = [
     "",
     "",
 ];
-
-
 // Text Boxes
 gobliteeText = document.getElementById("goblitee_text");
 playerText = document.getElementById("player_text");
 playerInput = document.getElementById("player_input");
 gobilteeSpeechWrapper = document.querySelector(".speech_wrapper");
 gobliteeImage = document.getElementById("goblitee_image")
-
 // Buttons
 var talkButton = document.getElementById("talk_button");
 talkButton.addEventListener("click", runPotionEmporioum);
@@ -102,7 +95,6 @@ function nextButtonClick() {
     currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
 };
 // User Selection
-
 function selectBase() {
   playerText.innerHTML = "<p>Select which one you would like 1-6: or press CANCEL to purchase an ACTIVE INGREDIENT only.</p>";
   selectButton.disabled = false;
@@ -136,7 +128,6 @@ function selectBase() {
         playerText.innerHTML = "<p>" + basePhrases.join("\n") + "</p>";
       }
     }
-    
     function handleCancel() {
       console.log("Ingredient only");
       gobliteeText.innerHTML = "<p></p>"
@@ -145,13 +136,10 @@ function selectBase() {
       resolve(null);
       ingredientOnly();
     }
-    
     selectButton.addEventListener("click", handleSelect);
     cancelButton.addEventListener("click", handleCancel);
   });
-}
-
-  
+}  
 function ingredientOnly() {
   console.log("ingredient only check")
   playerText.innerHTML = "<p>Proceed to ingredient only purchase? y/n</p>"
@@ -176,58 +164,51 @@ function ingredientOnly() {
   console.log(inputPromise)
   return inputPromise
 };
-  
-  
-  
-  
-  //Ingredient selection
-
-  function selectActiveIngredient(){
-    playerText.innerHTML = ("<p>Select your ACTIVE INGREDIENT 1-5: or CANCEL to purchase your POTION BASE</p>");
-    selectButton.disabled = false;
-    selectButton.classList.remove("disabled");
-    cancelButton.disabled = false;
-    cancelButton.classList.remove("disabled");
-    nextButton.disabled = true;
-    nextButton.classList.add("disabled");
-    return new Promise((resolve) => {
-      function handleSelect () {
-        var selectedIngredient = null;
-        nextButton.disabled = false;
-        nextButton.classList.remove("disabled");
-        const ingredientList = parseInt(playerInput.value);
-        if (isNaN(ingredientList)) {
-          gobliteeText.innerHTML = "<p>That's not what I asked numbnuts. Select a number between 1 and 5, or hit CANCEL!</p>";
-        } else if (ingredientList >= 1 && ingredientList <=5) {
-          selectedIngredient = activeIngredient[ingredientList - 1];
-          const ingredientComment = getIngredientComment(selectedIngredient);
-          gobliteeText.innerHTML = (`${selectedIngredient.name.substring(3)}: ${selectedIngredient.price} Gold. ${ingredientComment}`)
-          playerText.innerHTML = "<p></p>";
-          selectButton.removeEventListener("click", handleSelect);
-          cancelButton.removeEventListener("click", handleCancel);
-          selectButton.disabled = true;
-          selectButton.classList.add("disabled");
-          cancelButton.disabled = true;
-          cancelButton.classList.add("disabled");
-          resolve(selectedIngredient)
-        } else {
-          gobliteeText.innerHTML = "<p>That's not what I asked numbnuts. Select a number between 1 and 5, or hit CANCEL!</p>";
-          playerText.innerHTML = "<p>" + ingredientPhrases.join("\n") + "</p>";
-        }
-      }
-      function handleCancel() {
-        console.log("base only");
-        gobliteeText.innerHTML = "<p></p>"
+function selectActiveIngredient(){
+  playerText.innerHTML = ("<p>Select your ACTIVE INGREDIENT 1-5: or CANCEL to purchase your POTION BASE</p>");
+  selectButton.disabled = false;
+  selectButton.classList.remove("disabled");
+  cancelButton.disabled = false;
+  cancelButton.classList.remove("disabled");
+  nextButton.disabled = true;
+  nextButton.classList.add("disabled");
+  return new Promise((resolve) => {
+    function handleSelect () {
+      var selectedIngredient = null;
+      nextButton.disabled = false;
+      nextButton.classList.remove("disabled");
+      const ingredientList = parseInt(playerInput.value);
+      if (isNaN(ingredientList)) {
+        gobliteeText.innerHTML = "<p>That's not what I asked numbnuts. Select a number between 1 and 5, or hit CANCEL!</p>";
+      } else if (ingredientList >= 1 && ingredientList <=5) {
+        selectedIngredient = activeIngredient[ingredientList - 1];
+        const ingredientComment = getIngredientComment(selectedIngredient);
+        gobliteeText.innerHTML = (`${selectedIngredient.name.substring(3)}: ${selectedIngredient.price} Gold. ${ingredientComment}`)
+        playerText.innerHTML = "<p></p>";
         selectButton.removeEventListener("click", handleSelect);
         cancelButton.removeEventListener("click", handleCancel);
-        resolve(null);
-        baseOnly();
+        selectButton.disabled = true;
+        selectButton.classList.add("disabled");
+        cancelButton.disabled = true;
+        cancelButton.classList.add("disabled");
+        resolve(selectedIngredient)
+      } else {
+        gobliteeText.innerHTML = "<p>That's not what I asked numbnuts. Select a number between 1 and 5, or hit CANCEL!</p>";
+        playerText.innerHTML = "<p>" + ingredientPhrases.join("\n") + "</p>";
       }
-      selectButton.addEventListener("click", handleSelect);
-      cancelButton.addEventListener("click", handleCancel);
-    });
-  };
-  
+    }
+    function handleCancel() {
+      console.log("base only");
+      gobliteeText.innerHTML = "<p></p>"
+      selectButton.removeEventListener("click", handleSelect);
+      cancelButton.removeEventListener("click", handleCancel);
+      resolve(null);
+      baseOnly();
+    }
+    selectButton.addEventListener("click", handleSelect);
+    cancelButton.addEventListener("click", handleCancel);
+  });
+}; 
 function baseOnly() {
   console.log("base only check")
   playerText.innerHTML = "<p>Would you like to purchase only your potion base? y/n</p>"
@@ -252,9 +233,6 @@ function baseOnly() {
   console.log(inputPromise)
   return inputPromise
 };
-
-
-
 function runPotionEmporioum() {
     nextButton.disabled = false;
     nextButton.classList.remove("disabled")
@@ -262,17 +240,13 @@ function runPotionEmporioum() {
     talkButton.classList.add("disabled")
     gobilteeSpeechWrapper.classList.add("visible");
     gobliteeImage.classList.add("visible");
-
     let currentPhraseIndex = 0;
     let selectedBase = null;
     let selectedIngredient = null;
-  
     gobliteeText.innerHTML = "<p>Welcome to Goblitee Potion Emporium. To make your potion you need to tell me the potion base you would like and then add an active ingredient.</p>";
-  
     function nextButtonClick() {
       gobliteeText.innerHTML = "<p>" + phrases[currentPhraseIndex] + "</p>";
       currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-  
       if (currentPhraseIndex === 2) {
         selectedBase = selectBase();
       } else if (currentPhraseIndex === 4) {
@@ -291,49 +265,44 @@ function runPotionEmporioum() {
         currentPhraseIndex = 0
       }
     }
-  
     nextButton.addEventListener("click", nextButtonClick);
   };
-  
-  
-  
 function totalCostCalc(selectedBasePromise, selectedIngredientPromise) {
-    Promise.all([selectedBasePromise, selectedIngredientPromise])
-        .then (([selectedBase, selectedIngredient]) => {
-            console.log(selectedBase, selectedIngredient, "check 2")
-            const totalCost = (selectedBase?.price ?? 0) + (selectedIngredient?.price ?? 0);
-            console.log("check")            
-            if (totalCost > playerCoinPurse) {
-                gobliteeText.innerHTML = ("<p>Why'd we go through all of that if you don't even have the coin to play?!</p>");
-                gobilteeSpeechWrapper.classList.remove("visible")
-                gobliteeImage.classList.remove("visible")
-            }
-            else {
-                if (selectedBase === "ingredient only") {
-                    gobliteeText.innerHTML = (`<p>Only an ACTIVE INGREDIENT today? For ${selectedIngredient.name.substring(3)} your total is ${selectedIngredient.price} Gold! \n ${selectedIngredient.itemPrice} Gold was removed from your coin purse.<p/>`)
-                    playerCoinPurse -= totalCost
-                    return totalCost
-                }
-            
-                else if (selectedIngredient === "base only") {
-                    gobliteeText.innerHTML = (`<p>Only a POTION BASE today? For ${selectedBase.name.substring(3)} your total is ${selectedBase.price} Gold! \n ${selectedBase.itemPrice} Gold was removed from your coin purse.</p>`)
-                    playerCoinPurse -= totalCost
-                    return totalCost
-                }
-                else if (selectedBase !== null && selectedIngredient !== null) {
-                    
-                    const newPotion = `${selectedBase.name.charAt(3) + selectedBase.name.slice(4).toLowerCase()} ${selectedIngredient.name.substring(3).toLowerCase()}`
-                    gobliteeText.innerHTML = (`<p>Your potion total is ${selectedBase.price  + selectedIngredient.price} Gold. You created a ${newPotion} potion!</p>`);
-                    playerCoinPurse -= totalCost
-                    coinPurseText.innerHTML = `${playerCoinPurse} Gold`
-                    coinPurseChangesText.classList.add("visible")
-                    coinPurseChangesText.innerHTML = (`<p>-${totalCost}</p>`)
-                    return totalCost
-                }
-            }
-        })
-    .catch((error) => {
-    console.error(error)
-    playerText.innerHTML = (`Player Gold: ${playerCoinPurse} Gold remaining`)
-    })
+  Promise.all([selectedBasePromise, selectedIngredientPromise])
+  .then (([selectedBase, selectedIngredient]) => {
+  console.log(selectedBase, selectedIngredient, "check 2")
+  const totalCost = (selectedBase?.price ?? 0) + (selectedIngredient?.price ?? 0);
+  console.log("check")            
+    if (totalCost > playerCoinPurse) {
+      gobliteeText.innerHTML = ("<p>Why'd we go through all of that if you don't even have the coin to play?!</p>");
+      gobilteeSpeechWrapper.classList.remove("visible")
+      gobliteeImage.classList.remove("visible")
+    }
+    else {
+      if (selectedBase === "ingredient only") {
+      gobliteeText.innerHTML = (`<p>Only an ACTIVE INGREDIENT today? For ${selectedIngredient.name.substring(3)} your total is ${selectedIngredient.price} Gold! \n ${selectedIngredient.itemPrice} Gold was removed from your coin purse.<p/>`)
+      playerCoinPurse -= totalCost
+      return totalCost
+      }
+  
+      else if (selectedIngredient === "base only") {
+        gobliteeText.innerHTML = (`<p>Only a POTION BASE today? For ${selectedBase.name.substring(3)} your total is ${selectedBase.price} Gold! \n ${selectedBase.itemPrice} Gold was removed from your coin purse.</p>`)
+        playerCoinPurse -= totalCost
+        return totalCost
+      }
+      else if (selectedBase !== null && selectedIngredient !== null) { 
+        const newPotion = `${selectedBase.name.charAt(3) + selectedBase.name.slice(4).toLowerCase()} ${selectedIngredient.name.substring(3).toLowerCase()}`
+        gobliteeText.innerHTML = (`<p>Your potion total is ${selectedBase.price  + selectedIngredient.price} Gold. You created a ${newPotion} potion!</p>`);
+        playerCoinPurse -= totalCost
+        coinPurseText.innerHTML = `${playerCoinPurse} Gold`
+        coinPurseChangesText.classList.add("visible")
+        coinPurseChangesText.innerHTML = (`<p>-${totalCost}</p>`)
+        return totalCost
+      }
+    }
+  })
+  .catch((error) => {
+  console.error(error)
+  playerText.innerHTML = (`Player Gold: ${playerCoinPurse} Gold remaining`)
+  });
 }

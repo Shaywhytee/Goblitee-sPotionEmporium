@@ -1,3 +1,4 @@
+"# Goblitee-sPotionEmpotium" 
 Goblitee's Potion Emporium
 
 This is a learning exercise I wrote. It's a simulation of a trip to a potion shop
@@ -13,4 +14,4 @@ The user flow is:
     select Potion Base or choose ingredient only
     Next
     select Ingredient or Base only
-"# Goblitee-sPotionEmpotium" 
+    end

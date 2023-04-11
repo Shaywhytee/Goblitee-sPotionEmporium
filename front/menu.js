@@ -133,7 +133,6 @@ function selectBase() {
       }
     }
     function handleCancel() {
-      console.log("Ingredient only");
       gobliteeText.innerHTML = "<p></p>"
       selectButton.removeEventListener("click", handleSelect);
       cancelButton.removeEventListener("click", handleCancel);
@@ -145,7 +144,6 @@ function selectBase() {
   });
 }  
 function ingredientOnly() {
-  console.log("ingredient only check")
   playerText.innerHTML = "<p>Proceed to ingredient only purchase? y/n</p>"
   const inputPromise = new Promise((resolve) => {
     selectButton.addEventListener("click", () => {
@@ -155,6 +153,10 @@ function ingredientOnly() {
         selectedBase = "ingredient only"
         nextButton.disabled = false;
         nextButton.classList.remove("disabled");
+        selectButton.disabled = true;
+        selectButton.classList.add("disabled");
+        cancelButton.disabled = true;
+        cancelButton.classList.add("disabled");
         resolve(selectedBase)
       } else if (answer[0] === "n") {
         selectBase().then((base) => {
@@ -165,7 +167,6 @@ function ingredientOnly() {
       }
     });
   });
-  console.log(inputPromise)
   return inputPromise
 };
 function selectActiveIngredient(){
@@ -204,7 +205,6 @@ function selectActiveIngredient(){
       }
     }
     function handleCancel() {
-      console.log("base only");
       gobliteeText.innerHTML = "<p></p>"
       selectButton.removeEventListener("click", handleSelect);
       cancelButton.removeEventListener("click", handleCancel);
@@ -216,7 +216,6 @@ function selectActiveIngredient(){
   });
 }; 
 function baseOnly() {
-  console.log("base only check")
   playerText.innerHTML = "<p>Would you like to purchase only your potion base? y/n</p>"
   const inputPromise = new Promise((resolve) => {
     selectButton.addEventListener("click", () => {
@@ -226,6 +225,10 @@ function baseOnly() {
         selectedIngredient = "base only"
         nextButton.disabled = false;
         nextButton.classList.remove("disabled");
+        selectButton.disabled = true;
+        selectButton.classList.add("disabled");
+        cancelButton.disabled = true;
+        cancelButton.classList.add("disabled");
         resolve(selectedIngredient)
       } else if (ingredientOnlyAnswer[0] === "n"){
         selectActiveIngredient().then((ingredient) => {
@@ -236,7 +239,6 @@ function baseOnly() {
       }
     });
   });
-  console.log(inputPromise)
   return inputPromise
 };
 function runPotionEmporioum() {
@@ -259,7 +261,7 @@ function runPotionEmporioum() {
         selectedIngredient = selectActiveIngredient();
       } else if (currentPhraseIndex === 7) {
         const totalCost = totalCostCalc(selectedBase, selectedIngredient);
-        gobliteeText.innerHTML = `<p>Your total cost is ${totalCost} gold. </p>`;
+        gobliteeText.innerHTML = `<p>Your total cost is ${totalCost ?? 0} gold. </p>`;
       } else if (currentPhraseIndex === 9){
         talkButton.disabled = false;
         talkButton.classList.remove("disabled")
@@ -276,9 +278,7 @@ function runPotionEmporioum() {
 function totalCostCalc(selectedBasePromise, selectedIngredientPromise) {
   Promise.all([selectedBasePromise, selectedIngredientPromise])
   .then (([selectedBase, selectedIngredient]) => {
-  console.log(selectedBase, selectedIngredient, "check 2")
-  const totalCost = (selectedBase?.price ?? 0) + (selectedIngredient?.price ?? 0);
-  console.log("check")            
+  const totalCost = (selectedBase?.price ?? 0) + (selectedIngredient?.price ?? 0);           
     if (totalCost > playerCoinPurse) {
       gobliteeText.innerHTML = ("<p>Why'd we go through all of that if you don't even have the coin to play?!</p>");
       setTimeout(() => {
@@ -288,8 +288,16 @@ function totalCostCalc(selectedBasePromise, selectedIngredientPromise) {
         talkButton.disabled = false;
         talkButton.classList.remove("disabled")
       }, 2000);
-    }
-    else {
+    }else if (selectedBase === null && selectedIngredient === null) {
+      gobliteeText.innerHTML = "<p>You didn't even get anything. Quit wasting my time.</p>"
+      setTimeout(() => {
+        gobliteeText.innerHTML = ("<p>mumble mumble</p>");
+        gobilteeSpeechWrapper.classList.remove("visible")
+        gobliteeImage.classList.remove("visible")
+        talkButton.disabled = false;
+        talkButton.classList.remove("disabled")
+      }, 2000);
+    }else {
       if (selectedBase === null) {
       gobliteeText.innerHTML = (`<p>Only an ACTIVE INGREDIENT today? For ${selectedIngredient.name.substring(3)} your total is ${selectedIngredient.price} Gold! \n ${selectedIngredient.itemPrice} Gold was removed from your coin purse.<p/>`)
       playerCoinPurse -= totalCost
@@ -318,7 +326,7 @@ function totalCostCalc(selectedBasePromise, selectedIngredientPromise) {
     }
   })
   .catch((error) => {
-  console.error(error, selectedBase)
-  playerText.innerHTML = (`Player Gold: ${playerCoinPurse} Gold remaining`)
+    console.log(error)
+    playerText.innerHTML = (`Player Gold: ${playerCoinPurse} Gold remaining`)
   });
 }

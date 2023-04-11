@@ -329,4 +329,4 @@ function totalCostCalc(selectedBasePromise, selectedIngredientPromise) {
     console.log(error)
     playerText.innerHTML = (`Player Gold: ${playerCoinPurse} Gold remaining`)
   });
-}
+};

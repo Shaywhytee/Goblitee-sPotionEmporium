@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 app = Flask (__name__)
@@ -28,15 +29,21 @@ class Player(db.Model):
 class Account_info(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     player_email = db.Column(db.String(50), nullable=False, unique=True)
-    player_password = db.Column(db.String(50), nullable=False)
+    player_password_hash = db.Column(db.String(128), nullable=False)
     account_creation_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     account_status = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, player_email, player_password, account_creation_date, account_status):
+    def __init__(self, player_email, player_password_hash, account_creation_date, account_status):
         self.player_email = player_email
-        self.player_password = player_password
+        self.player_password_hash = player_password_hash
         self.account_creation_date = account_creation_date
         self.account_status = account_status
+
+    def set_password(self, password):
+        self.player_password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.player_password_hash, password)
 
 class PlayerSchema(ma.Schema):
     class Meta:
@@ -45,7 +52,7 @@ player_schema = PlayerSchema()
 
 class AccountSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'player_email', 'player_password', 'account_creation_date', 'account_status')
+        fields = ('id', 'player_email', 'player_password_hash', 'account_creation_date', 'account_status')
 account_schema = AccountSchema()
 multi_account_schema = AccountSchema(many=True)
 
@@ -58,7 +65,7 @@ def account_create():
     
     post_data = request.get_json()
     player_email = post_data.get('player_email')
-    player_password = post_data.get('player_password')
+    player_password_hash = post_data.get('player_password')
     account_creation_date = post_data.get('account_creation_date')
     account_status = post_data.get('account_status', True)
 
@@ -68,7 +75,8 @@ def account_create():
     if player_email == None:
         return jsonify({"Error: Password is required"}), 400
     
-    new_account = Account_info(player_email, player_password, account_creation_date, account_status)
+    hashed_password = generate_password_hash(player_password_hash, method='sha256')
+    new_account = Account_info(player_email, hashed_password, account_creation_date, account_status)
     db.session.add(new_account)
     db.session.commit()
 
@@ -147,12 +155,30 @@ def get_account(id):
         "account": account_schema.dump(account)
     }
     return jsonify(data)
+#***** Login *****
+@app.route('/login', methods=["POST"])
+def login():
+    if request.content_type != 'application/json':
+        return jsonify({"Error: JSONIFY"}), 400
+    email = request.json.get("player_email")
+    password = request.json.get("player_password")
+    player = db.session.query(Account_info).filter(Account_info.player_email == email).first()
+    if player is None:
+        return jsonify({'error': 'Invalid email'}), 401
+    if not player.check_password(password):
+         return jsonify({'error': 'Invalid password'}), 401
+    return jsonify({'id': player.id}, 'login successful'), 200
 # ***** Player Endpoints *****
-
+#***** Set Username *****
+#***** Change Username *****
+#***** Coin Purse *****
+#***** Inventory *****
+#***** Purchase *****
 @app.route('/player/purchase/<id>', methods=['PUT'])
 def add_potion():
     player_name = request.json['player_name']
     item_price = request.json['item_price']
+#***** Sell *****
 
 if __name__ == '__main__':
     app.run(debug=True)

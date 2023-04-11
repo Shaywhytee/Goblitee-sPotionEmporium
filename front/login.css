@@ -1,0 +1,66 @@
+body {
+    margin: 0px;
+    font-family: 'Courier New', Courier, monospace;
+    background-image: url('../images/shop_front.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    overflow: hidden;
+}
+
+.page_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+#shop_name {
+
+}
+
+#shop_name h1{
+    background-color: gray;
+    border: solid;
+    border-color: white;
+    border-radius: 5px;
+    box-shadow: 10px 5px 5px black;
+    height: fit-content;
+    width: 600px;
+    text-align: center;
+}
+.page_wrapper > .log_in_wrapper {
+    height: 40vh;
+    width: 27vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    background: rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border: solid;
+    border-color: gray;
+    border-radius: 5px;
+    box-shadow: 10px 5px 5px black;
+    margin-left: 20px;
+    margin-bottom:  -10vh;
+    transition: 1s;
+}
+
+.page_wrapper > .log_in_wrapper > .input_wrapper {
+    margin-right: 5vw;
+    margin-top: 1vh;
+    width: 15vw;
+    height: 5vh;
+}
+
+.page_wrapper > .log_in_wrapper > .input_wrapper label {
+    background-color: gray;
+    border: solid;
+    border-color: white;
+    border-radius: 5px;
+    box-shadow: 10px 5px 5px black;
+    line-height: 2vh;
+}

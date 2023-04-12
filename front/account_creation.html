@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <title>Goblitee Potion Emporium Account Creation</title>
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/29be63ab34.js" 
+    crossorigin="anonymous">
+    </script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="account_creation.css"/>
+    <body>
+        <div class="page_wrapper">
+            <div id = shop_name>
+                <h1>Goblitee's Potion Emporium</h1>
+            </div>
+            <div class="account_creation_wrapper">
+                <div class="input_wrapper">
+                    <label for="email_input">Email:</label>
+                    <input type="text" id="email_input" name="email_input">
+                </div>
+                <div class="input_wrapper">
+                    <label for="email_input">Password</label>
+                    <input type="password" id="password_input" name="password_input" onkeyup="validatePassword()">
+                </div>
+                <div class="input_wrapper">
+                    <label for="email_input">Verify Password</label>
+                    <input type="password" id="vpassword_input" name="vpassword_input" onkeyup="validatePassword()">
+                <div class="input_wrapper">
+                    <button id="create_account">Create Account</button>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="info_text_wrapper">
+                    <p>A Class Project by Shaywhytee</p>
+                </div>
+            </div>
+        </div>
+        <script src="account_creation.js"></script>
+    </body>
+</html>

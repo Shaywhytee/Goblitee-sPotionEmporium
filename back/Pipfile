@@ -11,6 +11,7 @@ cors = "*"
 flask-sqlalchemy = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
+exc = "*"
 
 [dev-packages]
 

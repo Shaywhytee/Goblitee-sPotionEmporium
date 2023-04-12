@@ -51,3 +51,6 @@ loginButton.addEventListener("click", function() {
     console.error("Error:", error);
   });
 });
+createAccountButton.addEventListener("click", function() {
+  window.location.href = "account_creation.html"
+})

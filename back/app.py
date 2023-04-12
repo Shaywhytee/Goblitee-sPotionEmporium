@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import exc
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from datetime import datetime
@@ -36,7 +37,7 @@ class Account_info(db.Model):
     def __init__(self, player_email, player_password_hash, account_creation_date, account_status):
         self.player_email = player_email
         self.player_password_hash = player_password_hash
-        self.account_creation_date = account_creation_date
+        self.account_creation_date = datetime.strptime(account_creation_date, '%Y-%m-%dT%H:%M:%S.%fZ')
         self.account_status = account_status
 
     def set_password(self, password):
@@ -72,15 +73,20 @@ def account_create():
     if player_email == None:
         return jsonify({"Email is required"}), 400
     
-    if player_email == None:
+    if player_password_hash == None:
         return jsonify({"Error: Password is required"}), 400
-    
-    hashed_password = generate_password_hash(player_password_hash, method='sha256')
-    new_account = Account_info(player_email, hashed_password, account_creation_date, account_status)
-    db.session.add(new_account)
-    db.session.commit()
-
-    return jsonify({'success': 'Account created successfully'})
+    try:
+        hashed_password = generate_password_hash(player_password_hash, method='sha256')
+        new_account = Account_info(player_email, hashed_password, account_creation_date, account_status)
+        db.session.add(new_account)
+        db.session.commit()
+        return jsonify({'success': 'Account created successfully'})
+    except exc.IntegrityError:
+        db.session.rollback()
+        return jsonify({'Error': 'Email already exists.'}), 400
+    except:
+        db.session.rollback()
+        return jsonify({'Error': 'Unable to create account'}), 500
 #***** Account edit *****
 @app.route('/account/edit/<id>', methods=['PUT'])
 def account_edit(id):

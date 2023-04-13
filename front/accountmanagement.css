@@ -1,0 +1,238 @@
+body {
+    margin: 0px;
+    font-family: 'Courier New', Courier, monospace;
+    background-image: url('../images/aldo-katayanagi-homunc1280f.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    overflow: hidden;
+}
+.page_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100vw;
+}
+
+.shop_name {
+    background-color: gray;
+    border: solid;
+    border-color: white;
+    border-radius: 5px;
+    box-shadow: 10px 5px 5px black;
+    height: 7vh;
+    width: 600px;
+    line-height: 2vh;
+    text-align: center;
+}
+.page_wrapper > .menu_wrapper {
+    opacity: 100%;
+    height: 70vh;
+    width: 27vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 1s;
+    margin-top: 5vh;
+}
+
+.page_wrapper > .menu_wrapper > .menu_opt {
+    font-family: 'Courier New', Courier, monospace;
+    width: 27vw;
+    height: 10vh;
+    margin-top: 1vh;
+    color: white;
+    box-shadow: 10px 5px 5px black;
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border-color: gray;
+    border-radius: 5px;
+}
+
+.page_wrapper > .menu_wrapper > .menu_opt:hover {
+    border-color: white;
+    border-width: 2px;
+}
+
+#start_btn {
+    font-family: 'Courier New', Courier, monospace;
+    width: 27vw;
+    height: 10vh;
+    margin-top: 5vh;
+    color: white;
+    border: solid rgb(9,3,108);
+    background: linear-gradient(135deg, rgba(69,69,69,1) 0%, rgba(59,59,59,1) 41%, rgba(0,0,0,1) 89%);
+    border-radius: 5px;
+
+}
+
+#start_btn:hover {
+    border-color: white;
+    border-width: 2px;
+}
+
+.page_wrapper > .inner_menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    top: 36%;
+    right: 36.5%;
+    font-family: 'Courier New', Courier, monospace;
+    width: 27vw;
+    height: 30vh;
+    line-height: 30vh;
+    margin-top: 5vh;
+    color: white;
+    border: solid gray;
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border-radius: 5px;
+}
+.page_wrapper > .inner_menu button{
+    font-family: 'Courier New', Courier, monospace;
+    width: 12vw;
+    height: 5vh;
+    font-size: 1.2rem;
+    color: white;
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border-radius: 5px;
+}
+.page_wrapper > .inner_menu button:hover{
+    border-color: white;
+    border-width: 2px;
+}
+
+.page_wrapper > .inner_menu > .close_btn {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    width: 2vw;
+    height: 4vh;
+}
+
+.gold_text_wrapper {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    width: 15vw;
+    height: 10vh;
+    font-size: 1.2rem;
+    line-height: 5vh;
+    border: solid rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border-radius: 5px;
+}
+
+.gold_text_wrapper p {
+    color: gold;
+}
+
+#username_info {
+    display: none;
+    transition: 2s;
+    opacity: 0%;
+    line-height: 2vh;
+    font-size: 2rem;
+}
+
+#username_info.visible {
+    display: flex;
+    transition: 2s;
+    opacity: 100%;
+}
+#player_inventory_wrapper {
+    display: none;
+    transition: 2s;
+    opacity: 0%;
+}
+
+#player_inventory_wrapper.visible {
+    display: flex;
+    transition: 2s;
+    opacity: 100%;
+}
+#gold_wrapper {
+    display: none;
+    transition: 2s;
+    opacity: 0%;
+}
+
+#gold_wrapper.visible {
+    display: flex;
+    transition: 2s;
+    opacity: 100%;
+}
+#discovered_potion_list {
+    display: none;
+    transition: 2s;
+    opacity: 0%;
+}
+
+#discovered_potion_list.visible {
+    display: flex;
+    transition: 2s;
+    opacity: 100%;
+}
+#account_info_menu {
+    display: none;
+    transition: 2s;
+    opacity: 100%;
+}
+
+#account_info_menu.visible {
+    display: flex;
+    transition: 2s;
+    opacity: 100%;
+}
+
+#new_player_setup {
+    display: none;
+    transition: 2s;
+    opacity: 0%;
+    line-height: 2vh;
+}
+
+#new_player_setup.visible {
+    display: flex;
+    transition: 2s;
+    opacity: 100%;
+}
+
+#name_input {
+    font-family: 'Courier New', Courier, monospace;
+    width: 12vw;
+    height: 5vh;
+    font-size: 1.2rem;
+    color: white;
+    border: solid rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border-radius: 5px;
+    text-align: center;
+}
+
+#title_select {
+    font-family: 'Courier New', Courier, monospace;
+    width: 12vw;
+    height: 5vh;
+    font-size: 1.2rem;
+    color: white;
+    border: solid rgb(9,3,108);
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border-radius: 5px;
+}
+
+.title_option {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+    color: rgb(9,3,108);
+    border-radius: 5px;
+}
+
+
+
+#new_player_submit:hover {
+    border-color: white;
+    border-width: 2px;
+}

@@ -42,10 +42,15 @@ loginButton.addEventListener("click", function() {
   })
   .then(response => {
     if (response.ok) {      
-      window.location.href = "index.html";
+      return response.json();
     } else {
-      alert("Login failed, please try again");
+      throw new Error("Login failed, please try again");
     }
+  })
+  .then(data => {
+    console.log(data[0].id);
+    const accountId = data[0].id
+    window.location.href = `account_management.html?accountId=${accountId}`
   })
   .catch(error => {
     console.error("Error:", error);

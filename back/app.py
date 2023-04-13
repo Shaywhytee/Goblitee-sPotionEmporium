@@ -7,7 +7,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
-app = Flask (__name__)
+app = Flask(__name__)
 CORS(app)
 
 basedir =  os.path.abspath(os.path.dirname(__file__))
@@ -19,13 +19,17 @@ ma = Marshmallow(app)
 class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     player_name = db.Column(db.String(15), nullable=False, unique=True)
-    player_coin = db.Column(db.Integer, nullable = False)
+    player_title = db.Column(db.String, nullable=False)
+    player_coin = db.Column(db.Integer, nullable=False)
     player_inventory = db.Column(db.PickleType, nullable = True)
-    def __init__(self, player_name, player_coin,player_inventory):
+    account_id = db.Column(db.Integer, db.ForeignKey('account_info.id'), nullable=False)
 
+    def __init__(self, player_name, player_title, player_coin, player_inventory, account_id):
         self.player_name = player_name
+        self.player_title = player_title
         self.player_coin = player_coin
         self.player_inventory = player_inventory
+        self.account_id = account_id
 
 class Account_info(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,6 +37,7 @@ class Account_info(db.Model):
     player_password_hash = db.Column(db.String(128), nullable=False)
     account_creation_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     account_status = db.Column(db.Boolean, nullable=False)
+    players = db.relationship('Player', backref='account', lazy=True)
 
     def __init__(self, player_email, player_password_hash, account_creation_date, account_status):
         self.player_email = player_email
@@ -48,8 +53,9 @@ class Account_info(db.Model):
 
 class PlayerSchema(ma.Schema):
     class Meta:
-        fields = ('player_name', 'player_coin', 'player_inventory')
+        fields = ('id', 'player_name', 'player_title', 'player_coin', 'player_inventory')
 player_schema = PlayerSchema()
+players_schema = PlayerSchema(many=True)
 
 class AccountSchema(ma.Schema):
     class Meta:
@@ -157,8 +163,14 @@ def get_accounts():
 @app.route('/account/<id>', methods=["GET"])
 def get_account(id):
     account = db.session.query(Account_info).get(id)
+    if not account:
+        return jsonify({"Error: Account not found"}), 404
+    players = []
+    for player in account.players:
+        players.append(player_schema.dump(player))
     data = {
-        "account": account_schema.dump(account)
+        "account": account_schema.dump(account),
+        "players": players
     }
     return jsonify(data)
 #***** Login *****
@@ -175,7 +187,47 @@ def login():
          return jsonify({'error': 'Invalid password'}), 401
     return jsonify({'id': player.id}, 'login successful'), 200
 # ***** Player Endpoints *****
+@app.route('/account/<id>/playercreate', methods=["POST"])
+def player_create(id):
+    if request.content_type != 'application/json':
+        return jsonify({"Error: JSONIFY"}), 400
+    post_data = request.get_json()
+    player_name = post_data.get('player_name')
+    player_title = post_data.get('player_title')
+    player_coin = post_data.get('player_coin')
+    player_inventory = post_data.get('player_inventory')
+    account = Account_info.query.get(id)
+    if not account:
+        return jsonify({"Error: Account not found"}), 404
+    new_player = Player(player_name,player_title, player_coin, player_inventory, account.id)
+    db.session.add(new_player)
+    db.session.commit()
+    return jsonify({'success':'Player created successfully'}, player_schema.dump(new_player))
+#***** Delete Player *****
+@app.route('/account/<account_id>/playerdelete/<player_id>', methods=['DELETE'])
+def delete_player(account_id, player_id):
+    player = Player.query.filter_by(id=player_id, account_id=account_id).first()
+    if not player:
+        return jsonify({'error': 'Player not found.'}), 404
+    db.session.delete(player)
+    db.session.commit()
+    return jsonify({'message': 'Player deleted successfully.'}), 200
 #***** Set Username *****
+@app.route('/account/<id>/player', methods=["GET"])
+def get_player_for_account(id):
+    account = Account_info.query.get(id)
+    if not account:
+        return jsonify({'error': 'Account not found'}), 404
+    player = Player.query.filter_by(account_id=id).first()
+    if not player:
+        return jsonify({'Error': 'Player not found for account'}), 404
+    data = {
+        'player_name': player.player_name,
+        'player_title': player.player_title,
+        'player_coin': player.player_coin,
+        'player_inventory':player.player_inventory
+    }
+    return jsonify(data)
 #***** Change Username *****
 #***** Coin Purse *****
 #***** Inventory *****

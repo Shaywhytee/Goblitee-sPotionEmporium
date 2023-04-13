@@ -38,9 +38,10 @@ const logoutBtn = document.getElementById("logout")
 logoutBtn.addEventListener("click", function() {
     window.location.href = "login.html"
 });
+let playerId;
 const startBtn = document.getElementById("start_btn");
 startBtn.addEventListener("click", function() {
-    window.location.href = "index.html"
+    window.location.href = `index.html?accountId=${accountId}?playerId=${playerId}`
 })
 const createNewPlayer = document.getElementById("create_new_player")
 createNewPlayer.addEventListener("click", () => {
@@ -66,6 +67,8 @@ function playerCreation() {
         if (response.ok) {
           alert('Player created successfully');
           newPlayerSetup.classList.remove("visible")
+          const playerId = data[0].id
+          return playerId
         } else {
           alert('Error creating player');
         }
@@ -133,7 +136,7 @@ function CheckForPlayer() {
               },
               body: JSON.stringify({
                 player_name: nameInput.value,
-                player_title: titleInput.value,
+                player_title: titleSelect.value,
                 player_coin: 200,
                 player_inventory: ""
               })
@@ -157,6 +160,7 @@ function CheckForPlayer() {
         playerName.textContent = data.player_name
         playerTitle.textContent = data.player_title
         coinPurseTotal.textContent = data.player_coin
+        playerId = data.player_id
         const playerInventory = data.player_inventory ? JSON.parse(data.player_inventory) : [];
         console.log(data);
         const inventoryContainer = document.getElementById("inventory-container");

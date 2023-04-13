@@ -1,3 +1,62 @@
+// Get player info
+urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+const accountId = params.accountId
+const playerId = params.playerId
+
+//Player info
+let playerNameTitle = document.getElementById("player_name");
+// Player Coin Purse
+let playerCoinPurse = 0;
+coinPurseText = document.getElementById("coin_purse")
+coinPurseChangesText = document.getElementById("coin_purse_changes")
+
+function getPlayerInfo () {
+  fetch(`http://127.0.0.1:5000/account/${accountId}/player/${playerId}`)
+  .then(response => response.json())
+  
+  .then(data => {
+    const player = data.players[0];
+    playerName = player.player_name
+    playerTitle = player.player_title
+    playerNameTitle.textContent = playerName + " " + playerTitle
+    playerCoinPurse = player.player_coin
+    coinPurseText.innerHTML = `${playerCoinPurse} Gold`
+    console.log(player)
+    })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+};
+
+getPlayerInfo();
+// Menu
+const menuBtn = document.getElementById("menu_btn")
+const menuWrapper = document.getElementById("menu_wrapper")
+const dimmer = document.getElementById("dimmer")
+menuBtn.addEventListener("click", () => {
+  menuWrapper.classList.add("visible")
+  dimmer.classList.add("active")
+});
+// TODO
+const saveBtn = document.getElementById("save_btn")
+saveBtn.addEventListener("click", () => {
+  saveGame()
+});
+const returnBtn = document.getElementById("return_btn")
+returnBtn.addEventListener("click", () => {
+  const url = "account_management.html";
+  window.location.href = `${url}?accountId=${accountId}`;
+});
+const logOutBtn = document.getElementById("log_out_btn")
+logOutBtn.addEventListener("click", () => {
+  window.location.href = "login.html"
+});
+const closeBtn = document.querySelector(".close_btn")
+closeBtn.addEventListener("click", () => {
+  menuWrapper.classList.remove("visible")
+  dimmer.classList.remove("active")
+});
 // Potion Bases
 const potionBase = [
 {name: "1: Green Slime", price: 3 },
@@ -7,7 +66,6 @@ const potionBase = [
 {name: "5: Dragon Blood", price: 30 },
 {name: "6: Death Remnants", price: 6 },
 ];
-
 // Potion Active ingrediants
 const activeIngredient = [
 {name: "1: Goblin Jello", price: 5},
@@ -16,11 +74,6 @@ const activeIngredient = [
 {name: "4: Yeti Teeth", price: 11},
 {name: "5: Holy Cloth", price: 7},
 ];
-// Player Coin Purse
-var playerCoinPurse = 20
-coinPurseText = document.getElementById("coin_purse")
-coinPurseText.innerHTML = `${playerCoinPurse} Gold`
-coinPurseChangesText = document.getElementById("coin_purse_changes")
 // Comments
 function getPotionComment(selectedBase) {
     switch (selectedBase.name) {
@@ -78,6 +131,8 @@ playerInput = document.getElementById("player_input");
 gobilteeSpeechWrapper = document.querySelector(".speech_wrapper");
 gobliteeImage = document.getElementById("goblitee_image")
 // Buttons
+var playerBtns = document.querySelector(".player_btns")
+var inventoryButton = document.getElementById("inventory_button")
 var talkButton = document.getElementById("talk_button");
 talkButton.addEventListener("click", runPotionEmporioum);
 var nextButton = document.getElementById("next_button");
@@ -244,8 +299,8 @@ function baseOnly() {
 function runPotionEmporioum() {
     nextButton.disabled = false;
     nextButton.classList.remove("disabled")
-    talkButton.disabled = true;
-    talkButton.classList.add("disabled")
+    playerBtns.disabled = true;
+    playerBtns.classList.add("disabled")
     gobilteeSpeechWrapper.classList.add("visible");
     gobliteeImage.classList.add("visible");
     let currentPhraseIndex = 0;
@@ -263,8 +318,8 @@ function runPotionEmporioum() {
         const totalCost = totalCostCalc(selectedBase, selectedIngredient);
         gobliteeText.innerHTML = `<p>Your total cost is ${totalCost ?? 0} gold. </p>`;
       } else if (currentPhraseIndex === 9){
-        talkButton.disabled = false;
-        talkButton.classList.remove("disabled")
+        playerBtns.disabled = false;
+        playerBtns.classList.remove("disabled")
         nextButton.disabled = true;
         nextButton.classList.add("disabled")
         gobilteeSpeechWrapper.classList.remove("visible")
@@ -285,8 +340,8 @@ function totalCostCalc(selectedBasePromise, selectedIngredientPromise) {
         gobliteeText.innerHTML = ("<p>Why'd we go through all of that if you don't even have the coin to play?!</p>");
         gobilteeSpeechWrapper.classList.remove("visible")
         gobliteeImage.classList.remove("visible")
-        talkButton.disabled = false;
-        talkButton.classList.remove("disabled")
+        playerBtns.disabled = false;
+        playerBtns.classList.remove("disabled")
       }, 2000);
     }else if (selectedBase === null && selectedIngredient === null) {
       gobliteeText.innerHTML = "<p>You didn't even get anything. Quit wasting my time.</p>"
@@ -294,8 +349,8 @@ function totalCostCalc(selectedBasePromise, selectedIngredientPromise) {
         gobliteeText.innerHTML = ("<p>mumble mumble</p>");
         gobilteeSpeechWrapper.classList.remove("visible")
         gobliteeImage.classList.remove("visible")
-        talkButton.disabled = false;
-        talkButton.classList.remove("disabled")
+        playerBtns.disabled = false;
+        playerBtns.classList.remove("disabled")
       }, 2000);
     }else {
       if (selectedBase === null) {

@@ -12,8 +12,9 @@
         <link rel="stylesheet" href="styles.css"/>
     </head>
     <body>
+        <div id="dimmer"></div>
         <div class="page_wrapper">
-
+            <button id="menu_btn"><i class="fa-solid fa-bars"></i></button>
             <h1 class = shop_name>Goblitee's Potion Emporium</h1>
             <img src = ../images/goblitee.png id="goblitee_image"></img>
             <div class="speech_wrapper">
@@ -26,8 +27,8 @@
                 </div>
             </div>
             <div class="player_speech_wrapper">
-                <div class="player_title">
-                    <h2> Shaywhytee the Inconsequential</h2>
+                <div class="player_heading">
+                    <div id="player_name"></div>
                 </div>
                 <div class="player_speech">
                     <p id="player_text"></p>
@@ -37,11 +38,21 @@
                         <button id = "cancel_button">Cancel</button>
                     </div>
                 </div>
-                <button id="talk_button"> Talk</button>
+                <div class="player_btns">
+                    <button id="inventory_button">Inventory</button>
+                    <button id="talk_button"> Talk</button>
+                </div>
             </div>
             <div class="coin_purse_wrapper">
                 <div id="coin_purse_changes">test</div>
                 <div id="coin_purse"></div>
+            </div>
+            <div id="menu_wrapper">
+                <button class="close_btn">X</button>
+                <div id="menu_title">MENU</div>
+                <button class="menu_opt" id="save_btn">Save</button>
+                <button class="menu_opt" id="return_btn">Return to Account Menu</button>
+                <button class="menu_opt" id="log_out_btn">Logout</button>
             </div>
         </div>
         <!-- JS -->

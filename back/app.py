@@ -213,21 +213,30 @@ def delete_player(account_id, player_id):
     db.session.commit()
     return jsonify({'message': 'Player deleted successfully.'}), 200
 #***** Set Username *****
-@app.route('/account/<id>/player', methods=["GET"])
-def get_player_for_account(id):
-    account = Account_info.query.get(id)
+@app.route('/account/<account_id>/player', methods=["GET"])
+@app.route('/account/<account_id>/player/<player_id>', methods=["GET"])
+def get_player_for_account(account_id, player_id=None):
+    account = Account_info.query.get(account_id)
     if not account:
         return jsonify({'error': 'Account not found'}), 404
-    player = Player.query.filter_by(account_id=id).first()
+    
+    if player_id:
+        player = Player.query.filter_by(id=player_id, account_id=account_id).first()
+    else:
+        player = Player.query.filter_by(account_id=account_id).first()
+    
     if not player:
-        return jsonify({'Error': 'Player not found for account'}), 404
+        return jsonify({'error': 'Player not found for account'}), 404
+
     data = {
         'player_name': player.player_name,
         'player_title': player.player_title,
         'player_coin': player.player_coin,
-        'player_inventory':player.player_inventory
+        'player_inventory': player.player_inventory,
+        'player_id': player.id
     }
     return jsonify(data)
+
 #***** Change Username *****
 #***** Coin Purse *****
 #***** Inventory *****

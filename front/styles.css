@@ -7,6 +7,14 @@ body {
     position: absolute;
     overflow: hidden;
 }
+#dimmer.active {
+    opacity: 80%;
+    z-index: 2;
+    background-color: black;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+}
 
 .page_wrapper {
     display: flex;
@@ -16,6 +24,28 @@ body {
     height: 100vh;
     width: 100vw;
 }
+#menu_btn {
+    position: absolute;
+    right: 0%;
+    z-index: 1;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    font-size: 1.5rem;
+    line-height: 6vh;
+    width: 3vw;
+    height: 6vh;
+    margin-top: 1vh;
+    margin-right: .5vw;
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    transition: 1s;
+}
+
+#menu_btn:hover{
+    background: aliceblue;
+    color: black;
+    border-color: black;
+}
+
 .shop_name {
     background-color: gray;
     border: solid;
@@ -160,18 +190,16 @@ body {
     transition: 2s;
 }
 
-.player_speech_wrapper > .player_title h2 {
-    color: aliceblue;
-    text-shadow: 10px 5px 5px black;
-    font-size: 1vw;
-    line-height: 1vh;
-}
 
-.player_speech_wrapper > .player_title {
+.player_speech_wrapper > .player_heading {
     width: 100%;
     height: 50px;
     border-bottom: solid;
     text-align: center;
+    color: aliceblue;
+    text-shadow: 10px 5px 5px black;
+    font-size: 1vw;
+    line-height: 4vh;
 }
 
 .player_speech_wrapper > .player_speech {
@@ -236,7 +264,7 @@ body {
     border-color: black;
 }
 
-#talk_button {
+.player_btns button {
     background: rgb(9,3,108);
     background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
     color: aliceblue;
@@ -249,13 +277,13 @@ body {
     font-size: .8vw;
 }
 
-#talk_button:hover{
+.player_btns button:hover{
     background: aliceblue;
     color: black;
     border-color: black;
 }
 
-#talk_button.disabled {
+.player_btns.disabled button {
     background: grey;
     pointer-events: none;
     transition: none;
@@ -263,7 +291,7 @@ body {
     border-color: black;
 }
 
-#talk_button.disabled:hover {
+.player_btns.disabled button:hover {
     background-color: grey;
     cursor: default;
     border: none;
@@ -289,6 +317,7 @@ body {
     border: solid;
     border-color: gray;
     border-radius: 5px;
+    padding: 1vh;
     margin-bottom: 3vh;
     margin-right: 3vw;
 }
@@ -304,6 +333,7 @@ body {
     border: solid;
     border-color: gray;
     border-radius: 5px;
+    padding: 1vh;
     margin-bottom: 3vh;
     margin-right: 1vw;
     transition: 1s;
@@ -312,4 +342,82 @@ body {
 
 #coin_purse_changes.visible {
     opacity: 100%;
+}
+
+#menu_wrapper {
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border: solid;
+    border-color: gray;
+    border-radius: 5px;
+    opacity: 100%;
+    height: 45vh;
+    width: 30vw;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 1s;
+    margin-top: 5vh;
+    position: absolute;
+    top: 20%;
+    z-index: 2;
+    transition: 2s;
+}
+
+#menu_wrapper.visible {
+    display: flex;
+    transition: 2s;
+    opacity: 100%;
+    
+}
+
+#menu_title {
+    font-family: 'Courier New', Courier, monospace;
+    width: 27vw;
+    height: 7vh;
+    line-height: 7vh;
+    margin-top: 1vh;
+    color: white;
+    box-shadow: 10px 5px 5px black;
+    background: linear-gradient(135deg, rgba(69,69,69,1) 0%, rgba(59,59,59,1) 41%, rgba(0,0,0,1) 89%);
+    border: solid;
+    border-color: gray;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.menu_opt {
+    font-family: 'Courier New', Courier, monospace;
+    width: 27vw;
+    height: 10vh;
+    margin-top: 1vh;
+    color: white;
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+    border-color: gray;
+    border-radius: 5px;
+    transition: 1s;
+}
+
+.menu_opt:hover {
+    border-color: white;
+    border-width: 2px;
+    box-shadow: 10px 5px 5px black;
+}
+
+.page_wrapper > .menu_wrapper > .menu_opt:hover {
+    border-color: white;
+    border-width: 2px;
+}
+
+.close_btn {
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    align-self: flex-end;
+    width: 2vw;
+    height: 4vh;
+    background: linear-gradient(177deg, rgba(9,3,108,1) 12%, rgba(1,18,194,1) 66%, rgba(0,12,143,1) 92%);
+}
+.close_btn:hover {
+    border-color: white;
+    border-width: 2px;
 }

@@ -11,9 +11,25 @@
         <link rel="stylesheet" href="..\front\accountmanagement.css"/>
     </head>
     <body>
+        <div id="dimmer"></div>
         <div class="page_wrapper">
+            <div class="inner_menu" id="selected_player">
+                <div class="selected_player_text" id="selected_player_banner"><h2>Selected Player</h2></div>
+                <div class="selected_player_text" id="selected_player_name"></div>
+                <div class="selected_player_text" id="selected_player_title"></div>
+            </div>
             <div class="shop_name">
                 <h1>Goblitee's Potion Emporium</h1>
+            </div>
+            <div class="inner_menu" id="confirmation_window">
+                <div class="text_wrapper">
+                    <h1>WARNING</h1>
+                    <div id="confirmation_text"><p>Text</p></div>
+                </div>
+                <div class="confirmation_btns_wrapper">
+                    <button id="confirm_btn">Yes</button>
+                    <button id="deny_btn">No</button>
+                </div>
             </div>
             <div class="menu_wrapper">
                 <button class="menu_opt" id="create_new_player">Create New Player</button>
@@ -27,17 +43,33 @@
             <div class="start_btn_wrapper">
                 <button id="start_btn">Brew Some Potions</button>
             </div>
-            <div class="inner_menu" id="username_info">
+            <div class="inner_menu" id="players_wrapper">
                 <button class="close_btn">X</button>
-                <div id="name"></div>
-                <div id="title"></div>
-                <div id="creation_date"></div>
-                <button id="change_name">Change Username</button>
-                <button id="change_title">Change Title</button>
+                <div class="username_info" id="player_1">
+                    <div class="player_detail" id="name_1">Empty</div>
+                    <div class="player_detail" id="title_1"></div>
+                    <div class="player_detail" id="gold_1"></div>
+                    <div class="player_detail" id="creation_date_1"></div>
+                    <div class="player_button_wrapper"></div>
+                </div>
+                <div class="username_info" id="player_2">
+                    <div class="player_detail" id="name_2">Empty</div>
+                    <div class="player_detail"id="title_2"></div>
+                    <div class="player_detail"id="gold_2"></div>
+                    <div class="player_detail"id="creation_date_2"></div>
+                    <div class="player_button_wrapper"></div>
+                </div>
+                <div class="username_info" id="player_3">
+                    <div class="player_detail" id="name_3">Empty</div>
+                    <div class="player_detail" id="title_3"></div>
+                    <div class="player_detail" id="gold_3"></div>
+                    <div class="player_detail" id="creation_date_3"></div>
+                    <div class="player_button_wrapper"></div>
+                </div>
             </div>
             <div class="inner_menu" id="player_inventory_wrapper">
                 <button class="close_btn">X</button>
-                <div class="inventory_slots_indicator"><p>0/10</p></div>
+                <div class="inventory_slots_indicator"><p></p></div>
                 <div class="inventory_slots"></div>
             </div>
             <div class="inner_menu" id="gold_wrapper">
@@ -60,8 +92,12 @@
             </div>
             <div class="inner_menu" id="account_info_menu">
                 <button class="close_btn">X</button>
-                <div id="user_email"></div>
-                <div id="account_creation_date"></div>
+                <label for ="user_email">Email:</label>
+                <div class="menu_text" id="user_email" name="user_email"></div>
+                <label for = "account_creation_date">Creation Date:</label>
+                <div class="menu_text" id="account_creation_date" name="account_creation_date"></div>
+                <label for="account_status">Account Status</label>
+                <div class="menu_text" id="account_status"name="account_status"></div>
                 <button id="deactivate_account">Deactivate Account</button>
                 <button id="change_password">Change Password</button>
             </div>
@@ -77,6 +113,19 @@
                 </select>
                 <button id="new_player_submit">Submit</button>
                 <button class="close_btn">X</button>
+            </div>
+            <div class="inner_menu" id="change_name">
+                <label for ="name_input">Username:</label>
+                <input id="change_name_input" name="name" type="text"></input>
+                <label for="title">Title:</label>
+                <select name="title" id="change_title">
+                    <option class="title_option" value="" disabled selected>Select a title</option>
+                    <option class="title_option" value="The Brewmaster">The Brewmaster</option>
+                    <option class="title_option" value="The Potion Somle">The Potion Somle</option>
+                    <option class="title_option" value="The Stinky">The Stinky</option>
+                </select>
+                <button id="change_name_submit">Submit</button>
+                <button class="close_btn2">Cancel</button>
             </div>
             <div class="footer">
                 <div class="info_text_wrapper">
